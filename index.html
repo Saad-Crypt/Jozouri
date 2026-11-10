@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#092c28">
+<title>جذوري | JUZOORI</title>
+<style>
+:root{--bg:#071d1b;--panel:#0e302b;--panel2:#143b34;--gold:#d7b66b;--gold2:#f1dfaa;--cream:#f7f0df;--muted:#b8c7bb;--line:#31554b;--red:#d88a7c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#1d5144 0,transparent 35%),linear-gradient(160deg,#061a18,#0b2823 55%,#071d1b);color:var(--cream);font-family:Tahoma,Arial,sans-serif;min-height:100vh}
+header{padding:24px 18px 16px;border-bottom:1px solid #31554b;background:#071d1bdc;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:12px}.seal{width:48px;height:48px;border:1px solid var(--gold);border-radius:16px;display:grid;place-items:center;color:var(--gold2);font-size:25px;box-shadow:inset 0 0 0 4px #d7b66b22}
+h1{font-size:25px;letter-spacing:.5px;margin:0;color:var(--gold2)}.sub{color:var(--muted);font-size:12px;margin-top:4px}
+nav{display:flex;gap:8px;overflow:auto;padding-top:18px}nav button,.btn{border:1px solid var(--line);background:#12352f;color:var(--cream);padding:11px 14px;border-radius:12px;font-weight:700;white-space:nowrap}
+nav button.active,.primary{background:linear-gradient(135deg,#e4ca83,#b58b3f);color:#18231c;border-color:#f1dfaa}
+main{max-width:900px;margin:auto;padding:18px 14px 40px}.hero{padding:22px;border:1px solid #8d7443;border-radius:22px;background:linear-gradient(135deg,#173e35,#0b2925);box-shadow:0 15px 40px #0004;margin-bottom:16px}
+.hero h2{font-size:22px;color:var(--gold2);margin:0 0 8px}.hero p{color:var(--muted);line-height:1.8;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:17px}.stat{background:#09231f;border:1px solid var(--line);padding:12px;border-radius:14px;text-align:center}.stat b{display:block;color:var(--gold2);font-size:22px}.stat span{font-size:11px;color:var(--muted)}
+.panel{background:linear-gradient(145deg,#10332d,#0b2824);border:1px solid var(--line);border-radius:18px;padding:17px;margin:14px 0;box-shadow:0 8px 24px #0002}
+h3{margin:0 0 14px;color:var(--gold2);font-size:18px}.muted{color:var(--muted);font-size:13px;line-height:1.7}
+label{display:block;color:var(--gold2);font-size:13px;margin:12px 0 6px}input,select,textarea{width:100%;padding:12px;border-radius:11px;border:1px solid #45665a;background:#061f1b;color:var(--cream);font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{min-height:85px;resize:vertical}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.btn{cursor:pointer}.btn:active{transform:scale(.98)}.danger{border-color:#81534d;color:#ffd2c9;background:#3b211f}
+.member{display:flex;align-items:center;gap:13px;padding:12px 0;border-bottom:1px solid #29483f}.member:last-child{border:0}.avatar{width:48px;height:48px;border-radius:15px;object-fit:cover;background:#24473d;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold2);font-size:21px;flex:none}.member-info{min-width:0;flex:1}.member-info b{display:block;color:var(--cream);margin-bottom:4px}.member-info small{color:var(--muted)}.mini{padding:7px 9px;font-size:12px;border-radius:9px}
+.empty{text-align:center;padding:28px 12px;color:var(--muted)}.empty .symbol{font-size:35px;color:var(--gold);margin-bottom:8px}
+.view{display:none}.view.active{display:block}.tree-node{border:1px solid var(--gold);border-radius:14px;background:#143a32;padding:12px;text-align:center;min-width:130px;max-width:220px}.tree-node strong{display:block;color:var(--gold2)}.tree-node small{color:var(--muted)}.tree-children{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px dashed #8d7443}.tree-wrap{overflow:auto;padding:10px 0}.notice{padding:12px;border-radius:12px;background:#1c4137;border:1px solid #476b58;color:#dce8d9;font-size:13px;line-height:1.7}
+footer{text-align:center;color:#839b8e;font-size:11px;padding:25px 12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.stats{gap:6px}.stat{padding:10px 5px}.stat b{font-size:19px}.hero{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="seal">🌳</div><div><h1>جُذوري <span style="font-size:13px;color:var(--gold)">JUZOORI</span></h1><div class="sub">حكاية أجيال… إرث لا يُنسى</div></div></div>
+ <nav>
+  <button class="active" data-tab="home">الرئيسية</button>
+  <button data-tab="add">إضافة فرد</button>
+  <button data-tab="people">أفراد العائلة</button>
+  <button data-tab="tree">شجرة النسب</button>
+  <button data-tab="backup">النسخ الاحتياطي</button>
+ </nav>
+</header>
+<main>
+<section id="home" class="view active">
+ <div class="hero"><h2>مرحباً بك في ذاكرة العائلة</h2><p>مساحة خاصة لتوثيق الأسماء والوجوه والروابط والحكايات، حتى تبقى جذور العائلة حاضرة في ذاكرة الأجيال القادمة.</p>
+ <div class="stats"><div class="stat"><b id="count">0</b><span>أفراد موثقون</span></div><div class="stat"><b id="roots">0</b><span>أصول عائلية</span></div><div class="stat"><b>∞</b><span>ذكريات محفوظة</span></div></div></div>
+ <div class="panel"><h3>🌿 بداية الحكاية</h3><p class="muted">ابدأ بإضافة الجد أو الجدة، ثم أضف الأبناء والأحفاد واربط كل شخص بوالديه. يمكنك إرفاق صورة وكتابة نبذة عن حياته.</p><button class="btn primary" onclick="showTab('add')">إضافة أول فرد من العائلة</button></div>
+ <div class="notice">🔒 <b>خصوصيتك أولاً:</b> تُحفظ البيانات على هذا الهاتف داخل مساحة المتصفح، ولا تُرسل إلى أي خادم. استخدم النسخ الاحتياطي بانتظام للاحتفاظ بنسخة خارجية.</div>
+</section>
+<section id="add" class="view">
+ <div class="panel"><h3 id="formTitle">إضافة فرد جديد</h3>
+ <form id="personForm">
+ <input type="hidden" id="personId">
+ <div class="grid"><div><label for="name">الاسم الكامل *</label><input id="name" required maxlength="100" placeholder="مثال: محمد بن عبد السلام"></div><div><label for="gender">الجنس</label><select id="gender"><option value="">غير محدد</option><option value="ذكر">ذكر</option><option value="أنثى">أنثى</option></select></div></div>
+ <div class="grid"><div><label for="birth">تاريخ الميلاد</label><input id="birth" type="date"></div><div><label for="death">تاريخ الوفاة (إن وجد)</label><input id="death" type="date"></div></div>
+ <div class="grid"><div><label for="father">الأب</label><select id="father"><option value="">غير محدد</option></select></div><div><label for="mother">الأم</label><select id="mother"><option value="">غير محدد</option></select></div></div>
+ <label for="place">مكان الميلاد أو الأصل</label><input id="place" maxlength="120" placeholder="المدينة أو القرية">
+ <label for="bio">السيرة والذكريات</label><textarea id="bio" maxlength="3000" placeholder="اكتب حكاية هذا الشخص، مهنته، صفاته، ذكرياته..."></textarea>
+ <label for="photo">صورة شخصية</label><input id="photo" type="file" accept="image/*">
+ <div class="actions"><button class="btn primary" type="submit">حفظ البيانات</button><button class="btn" type="button" onclick="resetForm()">إفراغ الحقول</button></div>
+ <p class="muted">* الاسم مطلوب. الصور الكبيرة قد تستهلك مساحة الهاتف؛ يُفضّل استخدام صور معتدلة الحجم.</p>
+ </form></div>
+</section>
+<section id="people" class="view"><div class="panel"><h3>أفراد العائلة</h3><input id="search" placeholder="ابحث بالاسم أو المكان…" oninput="renderPeople()"><div id="peopleList"></div></div></section>
+<section id="tree" class="view"><div class="panel"><h3>شجرة النسب</h3><p class="muted">اختر شخصاً لعرض ذريته المسجلة. اربط الأبناء بوالديهم من صفحة إضافة فرد.</p><label for="treeRoot">الشخص الذي تبدأ منه الشجرة</label><select id="treeRoot" onchange="renderTree()"></select><div id="treeCanvas" class="tree-wrap"></div></div></section>
+<section id="backup" class="view"><div class="panel"><h3>الخزنة والنسخ الاحتياطي</h3><p class="muted">احتفظ بنسخة من بياناتك في ملف JSON، ويمكنك استعادتها لاحقاً على الهاتف نفسه أو هاتف آخر.</p><div class="actions"><button class="btn primary" onclick="exportData()">تصدير نسخة احتياطية</button><label class="btn" style="margin:0;cursor:pointer">استيراد نسخة احتياطية<input id="importFile" type="file" accept="application/json,.json" style="display:none" onchange="importData(event)"></label></div><div class="notice" style="margin-top:15px">تنبيه: حذف بيانات المتصفح أو إلغاء تثبيته قد يؤدي إلى فقدان البيانات المحلية. ملف النسخة الاحتياطية هو وسيلة الحفظ والنقل الأساسية.</div><div class="actions"><button class="btn danger" onclick="clearAll()">حذف جميع البيانات من هذا الهاتف</button></div></div></section>
+</main>
+<footer>جُذوري JUZOORI · صُنع ليبقى أثر العائلة</footer>
+<script>
+const DB_NAME='JuzooriLocalDB', STORE='people'; let db;
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'});};req.onsuccess=()=>{db=req.result;resolve(db)};req.onerror=()=>reject(req.error)})}
+function allPeople(){return new Promise((resolve,reject)=>{const r=db.transaction(STORE).objectStore(STORE).getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)})}
+function savePerson(p){return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).put(p);r.onsuccess=resolve;r.onerror=()=>reject(r.error)})}
+function removePerson(id){return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).delete(id);r.onsuccess=resolve;r.onerror=()=>reject(r.error)})}
+async function showTab(id){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));if(id==='people')renderPeople();if(id==='tree')renderTree();if(id==='add')fillParents();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+async function refresh(){const a=await allPeople();document.getElementById('count').textContent=a.length;document.getElementById('roots').textContent=a.filter(p=>!p.fatherId&&!p.motherId).length;fillParents();fillTreeSelect();renderPeople();renderTree()}
+function fillParents(current=''){return allPeople().then(a=>{['father','mother'].forEach(id=>{const s=document.getElementById(id),v=s.value;s.innerHTML='<option value="">غير محدد</option>';a.filter(p=>p.id!==current).sort((x,y)=>x.name.localeCompare(y.name,'ar')).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});s.value=v})})}
+function fillTreeSelect(){return allPeople().then(a=>{const s=document.getElementById('treeRoot'),v=s.value;s.innerHTML='<option value="">اختر فرداً…</option>';a.sort((x,y)=>x.name.localeCompare(y.name,'ar')).forEach(p=>{let o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});if(a.some(p=>p.id===v))s.value=v;else if(a.length)s.value=a[0].id})}
+function resetForm(){document.getElementById('personForm').reset();document.getElementById('personId').value='';document.getElementById('formTitle').textContent='إضافة فرد جديد';fillParents()}
+document.getElementById('personForm').addEventListener('submit',async e=>{e.preventDefault();const id=document.getElementById('personId').value||crypto.randomUUID();const old=(await allPeople()).find(p=>p.id===id);let photo=old?.photo||'';const file=document.getElementById('photo').files[0];if(file)photo=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)});const p={id,name:val('name'),gender:val('gender'),birth:val('birth'),death:val('death'),fatherId:val('father'),motherId:val('mother'),place:val('place'),bio:val('bio'),photo};if(p.fatherId===id||p.motherId===id){alert('لا يمكن ربط الشخص بنفسه.');return}await savePerson(p);resetForm();await refresh();showTab('people');alert('تم حفظ بيانات الفرد على هذا الهاتف.')});
+function val(id){return document.getElementById(id).value}
+function safe(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function renderPeople(){const a=await allPeople(),q=(val('search')||'').trim().toLocaleLowerCase('ar'),box=document.getElementById('peopleList');const list=a.filter(p=>(p.name+' '+p.place).toLocaleLowerCase('ar').includes(q)).sort((x,y)=>x.name.localeCompare(y.name,'ar'));if(!list.length){box.innerHTML='<div class="empty"><div class="symbol">❖</div>لا توجد نتائج بعد. أضف أفراد العائلة لتبدأ الشجرة.</div>';return}box.innerHTML=list.map(p=>`<div class="member"><div class="avatar">${p.photo?`<img src="${p.photo}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:14px">`:'✧'}</div><div class="member-info"><b>${safe(p.name)}</b><small>${safe(p.place||'المكان غير مسجل')} ${p.birth?' · '+safe(p.birth):''}</small></div><button class="btn mini" onclick="editPerson('${p.id}')">تعديل</button><button class="btn mini danger" onclick="deletePerson('${p.id}')">حذف</button></div>`).join('')}
+async function editPerson(id){const p=(await allPeople()).find(x=>x.id===id);if(!p)return;showTab('add');await fillParents(id);['personId','name','gender','birth','death','father','mother','place','bio'].forEach((k,i)=>{const ids=['personId','name','gender','birth','death','father','mother','place','bio'];document.getElementById(ids[i]).value=({personId:p.id,name:p.name,gender:p.gender,birth:p.birth,death:p.death,father:p.fatherId,mother:p.motherId,place:p.place,bio:p.bio})[ids[i]]||''});document.getElementById('formTitle').textContent='تعديل بيانات '+p.name}
+async function deletePerson(id){if(!confirm('هل تريد حذف هذا الفرد؟ لن تُحذف سجلات أبنائه، لكن ستُفصل هذه الصلة.'))return;let a=await allPeople();for(const p of a){if(p.fatherId===id)p.fatherId='';if(p.motherId===id)p.motherId='';await savePerson(p)}await removePerson(id);refresh()}
+async function deletePersonUnused(){}
+async function renderTree(){const a=await allPeople(),rootId=val('treeRoot'),box=document.getElementById('treeCanvas');if(!a.length){box.innerHTML='<div class="empty">أضف أفراداً لتظهر شجرة النسب هنا.</div>';return}if(!rootId){box.innerHTML='<div class="empty">اختر شخصاً لعرض ذريته.</div>';return}const byId=new Map(a.map(p=>[p.id,p]));function node(p,depth=0,seen=new Set()){if(depth>6||seen.has(p.id))return '';const next=new Set(seen);next.add(p.id);const kids=a.filter(x=>x.fatherId===p.id||x.motherId===p.id);return `<div style="display:flex;flex-direction:column;align-items:center"><div class="tree-node"><strong>${safe(p.name)}</strong><small>${safe(p.birth||'')}</small></div>${kids.length?`<div class="tree-children">${kids.map(k=>node(k,depth+1,next)).join('')}</div>`:''}</div>`}box.innerHTML=node(byId.get(rootId))}
+async function exportData(){const a=await allPeople(),blob=new Blob([JSON.stringify({app:'JUZOORI',version:1,exportedAt:new Date().toISOString(),people:a},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='Juzoori-backup-'+new Date().toISOString().slice(0,10)+'.json';link.click();URL.revokeObjectURL(url)}
+async function importData(e){const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.app!=='JUZOORI'||!Array.isArray(data.people))throw Error('invalid');if(!confirm('سيتم دمج السجلات المستوردة مع الموجودة. هل تريد المتابعة؟'))return;for(const p of data.people){if(p.id&&p.name)await savePerson(p)}await refresh();alert('اكتمل استيراد النسخة الاحتياطية.')}catch(err){alert('تعذر قراءة الملف. تأكد أنه نسخة احتياطية صادرة من تطبيق جذوري.')}e.target.value=''}
+async function clearAll(){if(!confirm('تحذير: سيتم حذف جميع بيانات العائلة من هذا الهاتف نهائياً. هل أنشأت نسخة احتياطية؟'))return;const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).clear();tx.oncomplete=()=>{refresh();alert('تم حذف البيانات المحلية.')} }
+(async()=>{try{await openDB();await refresh()}catch(e){alert('تعذر تشغيل التخزين المحلي. افتح الملف في متصفح حديث مثل Chrome.')}})();
+</script>
+</body></html>
