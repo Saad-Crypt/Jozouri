@@ -25,6 +25,25 @@ textarea{min-height:85px;resize:vertical}.grid{display:grid;grid-template-column
 .view{display:none}.view.active{display:block}.tree-node{border:1px solid #b99b5c;border-radius:10px;background:linear-gradient(145deg,#f7f0df,#dce9df);padding:7px 9px;text-align:center;min-width:108px;max-width:175px;position:relative;box-shadow:0 3px 10px #0002}.tree-node strong{display:block;color:#173b32;font-size:12px;line-height:1.45;overflow-wrap:anywhere}.tree-node small{display:block;color:#49665a;font-size:10px;margin-top:3px}.tree-role{display:block;color:#876526;font-size:9px;font-weight:700;margin-bottom:3px}.tree-root{border:2px solid #d5ad54;background:linear-gradient(145deg,#f5dfaa,#e8c979);box-shadow:0 0 0 3px #d7b66b33,0 5px 14px #0003}.tree-root strong{color:#3d2c10}.tree-root .tree-role{color:#725019}.tree-wrap{overflow:auto;padding:12px 3px;min-height:100px;overscroll-behavior:contain}.genealogy{min-width:max-content;display:flex;flex-direction:column;align-items:center;gap:9px}.tree-section-title{color:var(--gold2);font-size:12px;text-align:center;margin:5px 0}.ancestor-parents,.descendant-children{display:flex;gap:7px;justify-content:center;align-items:flex-start;flex-wrap:nowrap;position:relative;padding-top:13px}.ancestor-parents:before,.descendant-children:before{content:'';position:absolute;top:0;left:10%;right:10%;border-top:1px solid #b99b5c}.ancestor-branch{display:flex;flex-direction:column;align-items:center;gap:5px}.ancestor-branch>.tree-node:before{content:'';position:absolute;bottom:100%;left:50%;height:6px;border-left:1px solid #b99b5c}.descendant-branch{display:flex;flex-direction:column;align-items:center;gap:5px}.descendant-branch>.tree-node:after{content:'';position:absolute;top:100%;left:50%;height:6px;border-left:1px solid #b99b5c}.descendant-children{margin-top:1px}.tree-empty-note{color:var(--muted);font-size:11px;text-align:center;padding:7px 10px;border:1px dashed var(--line);border-radius:9px}.tree-divider{width:1px;height:9px;background:#b99b5c}.tree-zoombar{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:10px 0 4px}.tree-zoombar button{min-width:42px;padding:8px 12px;border:1px solid #b99b5c;border-radius:10px;background:#f4ead2;color:#173b32;font-size:17px;font-weight:700}.tree-zoombar span{color:var(--gold2);font-size:12px;min-width:48px;text-align:center}.notice{padding:12px;border-radius:12px;background:#1c4137;border:1px solid #476b58;color:#dce8d9;font-size:13px;line-height:1.7}
 footer{text-align:center;color:#839b8e;font-size:11px;padding:25px 12px}
 @media(max-width:560px){.grid{grid-template-columns:1fr}.stats{gap:6px}.stat{padding:10px 5px}.stat b{font-size:19px}.hero{padding:18px}}
+
+/* Full-screen genealogy workspace */
+body.tree-mode{overflow:hidden}
+body.tree-mode>header,body.tree-mode>main>section:not(#tree),body.tree-mode>footer{display:none!important}
+body.tree-mode>main{position:static;margin:0;padding:0;max-width:none}
+#tree.view.active{display:block;position:fixed;inset:0;z-index:30;background:#061a18}
+#tree .panel{height:100%;width:100%;margin:0;padding:calc(env(safe-area-inset-top) + 7px) 9px calc(env(safe-area-inset-bottom) + 8px);border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.tree-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;flex:none}
+.tree-back{border:1px solid var(--gold);border-radius:10px;background:#12352f;color:var(--cream);padding:9px 10px;font-weight:700;white-space:nowrap}
+.tree-picker{display:flex;align-items:center;gap:6px;flex:1;min-width:130px;color:var(--gold2);font-size:12px}
+.tree-picker select{padding:9px;min-width:0;flex:1}
+#tree .tree-zoombar{margin:0;gap:5px;flex:none}
+#tree .tree-zoombar button{min-width:34px;padding:7px 9px;font-size:15px}
+#tree .tree-zoombar span{min-width:40px}
+.tree-hint{font-size:10px;color:var(--muted);text-align:center;flex:none}
+#treeCanvas.tree-wrap{flex:1;min-height:0;width:100%;padding:14px 10px;overflow:auto;border:1px solid #31554b;border-radius:13px;background:radial-gradient(ellipse at center,#12372f,#071d1b 78%);touch-action:none;overscroll-behavior:contain;position:relative}
+#treeCanvas .genealogy{padding:10px 14px 24px;transform-origin:top left}
+@media(max-width:560px){#tree .panel{gap:5px}.tree-toolbar{gap:5px}.tree-back{padding:8px;font-size:12px}.tree-picker{min-width:115px}.tree-picker span{display:none}#tree .tree-zoombar button{min-width:31px;padding:7px}#tree .tree-zoombar span{font-size:11px;min-width:35px}}
+
 </style>
 </head>
 <body>
@@ -60,20 +79,34 @@ footer{text-align:center;color:#839b8e;font-size:11px;padding:25px 12px}
  </form></div>
 </section>
 <section id="people" class="view"><div class="panel"><h3>أفراد العائلة</h3><input id="search" placeholder="ابحث بالاسم أو المكان…" oninput="renderPeople()"><div id="peopleList"></div></div></section>
-<section id="tree" class="view"><div class="panel"><h3>شجرة النسب</h3><p class="muted">اختر شخصاً لعرض ذريته المسجلة. اربط الأبناء بوالديهم من صفحة إضافة فرد.</p><label for="treeRoot">الشخص الذي تبدأ منه الشجرة</label><select id="treeRoot" onchange="renderTree()"></select><div class="tree-zoombar" aria-label="التحكم في حجم الشجرة"><button type="button" onclick="changeTreeZoom(-0.1)" aria-label="تصغير">−</button><span id="treeZoomLabel">90%</span><button type="button" onclick="changeTreeZoom(0.1)" aria-label="تكبير">+</button><button type="button" onclick="resetTreeZoom()" style="font-size:12px">إعادة الضبط</button></div><div id="treeCanvas" class="tree-wrap"></div></div></section>
+<section id="tree" class="view"><div class="panel"><div class="tree-toolbar"><button class="tree-back" type="button" onclick="showTab('home')">‹ الرئيسية</button><div class="tree-picker"><span>عرض شجرة</span><select id="treeRoot" onchange="renderTree()" aria-label="الشخص الذي تبدأ منه الشجرة"></select></div><div class="tree-zoombar" aria-label="التحكم في حجم الشجرة"><button type="button" onclick="changeTreeZoom(-0.1)" aria-label="تصغير">−</button><span id="treeZoomLabel">100%</span><button type="button" onclick="changeTreeZoom(0.1)" aria-label="تكبير">+</button><button type="button" onclick="resetTreeZoom()" style="font-size:12px">ملاءمة</button></div></div><div class="tree-hint">قرّب أو أبعد بإصبعين، واسحب بإصبع واحد لتحريك الشجرة</div><div id="treeCanvas" class="tree-wrap"></div></div></section>
 <section id="backup" class="view"><div class="panel"><h3>الخزنة والنسخ الاحتياطي</h3><p class="muted">احتفظ بنسخة من بياناتك في ملف JSON، ويمكنك استعادتها لاحقاً على الهاتف نفسه أو هاتف آخر.</p><div class="actions"><button class="btn primary" onclick="exportData()">تصدير نسخة احتياطية</button><label class="btn" style="margin:0;cursor:pointer">استيراد نسخة احتياطية<input id="importFile" type="file" accept="application/json,.json" style="display:none" onchange="importData(event)"></label></div><div class="notice" style="margin-top:15px">تنبيه: حذف بيانات المتصفح أو إلغاء تثبيته قد يؤدي إلى فقدان البيانات المحلية. ملف النسخة الاحتياطية هو وسيلة الحفظ والنقل الأساسية.</div><div class="actions"><button class="btn danger" onclick="clearAll()">حذف جميع البيانات من هذا الهاتف</button></div></div></section>
 </main>
 <footer>جُذوري JUZOORI · صُنع ليبقى أثر العائلة</footer>
 <script>
-const DB_NAME='JuzooriLocalDB', STORE='people'; let db, treeZoom=0.9;
+const DB_NAME='JuzooriLocalDB', STORE='people'; let db, treeZoom=1;
 function applyTreeZoom(){const g=document.querySelector('#treeCanvas .genealogy');if(g)g.style.zoom=treeZoom;const label=document.getElementById('treeZoomLabel');if(label)label.textContent=Math.round(treeZoom*100)+'%'}
-function changeTreeZoom(delta){treeZoom=Math.max(0.5,Math.min(1.5,Math.round((treeZoom+delta)*10)/10));applyTreeZoom()}
-function resetTreeZoom(){treeZoom=0.9;applyTreeZoom()}
+function changeTreeZoom(delta){treeZoom=Math.max(0.35,Math.min(2.5,Math.round((treeZoom+delta)*100)/100));applyTreeZoom()}
+function resetTreeZoom(){treeZoom=1;applyTreeZoom();const box=document.getElementById('treeCanvas');if(box)box.scrollTo({left:Math.max(0,(box.scrollWidth-box.clientWidth)/2),top:0,behavior:'smooth'})}
+function installTreeGestures(){
+ const box=document.getElementById('treeCanvas');if(!box||box.dataset.gestures)return;box.dataset.gestures='1';
+ let mode='',startX=0,startY=0,startLeft=0,startTop=0,startDistance=0,startZoom=1,startMidX=0,startMidY=0;
+ const distance=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+ box.addEventListener('touchstart',e=>{
+  if(e.touches.length===1){mode='pan';startX=e.touches[0].clientX;startY=e.touches[0].clientY;startLeft=box.scrollLeft;startTop=box.scrollTop}
+  else if(e.touches.length===2){e.preventDefault();mode='pinch';startDistance=distance(e.touches);startZoom=treeZoom;startMidX=(e.touches[0].clientX+e.touches[1].clientX)/2;startMidY=(e.touches[0].clientY+e.touches[1].clientY)/2;startLeft=box.scrollLeft;startTop=box.scrollTop}
+ },{passive:false});
+ box.addEventListener('touchmove',e=>{
+  if(mode==='pan'&&e.touches.length===1){e.preventDefault();box.scrollLeft=startLeft-(e.touches[0].clientX-startX);box.scrollTop=startTop-(e.touches[0].clientY-startY)}
+  else if(mode==='pinch'&&e.touches.length===2){e.preventDefault();const rect=box.getBoundingClientRect(),midX=(e.touches[0].clientX+e.touches[1].clientX)/2,midY=(e.touches[0].clientY+e.touches[1].clientY)/2,ratio=distance(e.touches)/Math.max(1,startDistance),next=Math.max(.35,Math.min(2.5,startZoom*ratio)),factor=next/startZoom;treeZoom=next;applyTreeZoom();box.scrollLeft=(startLeft+startMidX-rect.left)*factor-(midX-rect.left);box.scrollTop=(startTop+startMidY-rect.top)*factor-(midY-rect.top)}
+ },{passive:false});
+ const finish=()=>{mode=''};box.addEventListener('touchend',finish,{passive:true});box.addEventListener('touchcancel',finish,{passive:true});
+}
 function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'});};req.onsuccess=()=>{db=req.result;resolve(db)};req.onerror=()=>reject(req.error)})}
 function allPeople(){return new Promise((resolve,reject)=>{const r=db.transaction(STORE).objectStore(STORE).getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)})}
 function savePerson(p){return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).put(p);r.onsuccess=resolve;r.onerror=()=>reject(r.error)})}
 function removePerson(id){return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).delete(id);r.onsuccess=resolve;r.onerror=()=>reject(r.error)})}
-async function showTab(id){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));if(id==='people')renderPeople();if(id==='tree')renderTree();if(id==='add')fillParents();window.scrollTo({top:0,behavior:'smooth'})}
+async function showTab(id){document.body.classList.toggle('tree-mode',id==='tree');document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));if(id==='people')renderPeople();if(id==='tree')renderTree();if(id==='add')fillParents();window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 async function refresh(){const a=await allPeople();document.getElementById('count').textContent=a.length;document.getElementById('roots').textContent=a.filter(p=>!p.fatherId&&!p.motherId).length;await fillParents();await fillTreeSelect();await renderPeople();await renderTree()}
 function fillParents(current=''){return allPeople().then(a=>{['father','mother'].forEach(id=>{const s=document.getElementById(id),v=s.value;s.innerHTML='<option value="">غير محدد</option>';a.filter(p=>p.id!==current).sort((x,y)=>x.name.localeCompare(y.name,'ar')).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});s.value=v})})}
@@ -87,6 +120,7 @@ async function editPerson(id){const p=(await allPeople()).find(x=>x.id===id);if(
 async function deletePerson(id){if(!confirm('هل تريد حذف هذا الفرد؟ لن تُحذف سجلات أبنائه، لكن ستُفصل هذه الصلة.'))return;let a=await allPeople();for(const p of a){if(p.fatherId===id)p.fatherId='';if(p.motherId===id)p.motherId='';await savePerson(p)}await removePerson(id);refresh()}
 async function deletePersonUnused(){}
 async function renderTree(){
+ installTreeGestures();
  const a=await allPeople(),rootId=val('treeRoot'),box=document.getElementById('treeCanvas');
  if(!a.length){box.innerHTML='<div class="empty">أضف أفراداً لتظهر شجرة النسب هنا.</div>';return}
  if(!rootId){box.innerHTML='<div class="empty">اختر شخصاً لعرض شجرة النسب.</div>';return}
